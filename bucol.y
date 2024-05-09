@@ -65,18 +65,21 @@ add:                ADD INTEGER TO IDENTIFIER LINE_END {addition($4, $2);}
 input:              INPUT input_val {};
 input_val:          IDENTIFIER SEMICOLON input_val {isExisting($1);}
                     | IDENTIFIER LINE_END {isExisting($1);};
-end:                END LINE_END {exit(1);};
+end:                END LINE_END {printf("Your program is well formatted :)\n"); exit(1);};
 
 %%
 int main()
     {
     do yyparse();
         while(!feof(yyin));
+	
+	
     }
  
 void yyerror(const char *message)
 {
-	fprintf(stderr, "An error occured on line %d: %s\n", yylineno, message);
+	fprintf(stderr, "An error occured on line %d: You havent formatted the program correctly\n", yylineno);
+	exit(1);
 	
 }
 
